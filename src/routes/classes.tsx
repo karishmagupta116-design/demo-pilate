@@ -58,7 +58,7 @@ function ClassesPage() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-14">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading eyebrow="Weekly schedule" title="Book a class" sub="Reformer, mat and private sessions. Availability updates the moment someone books." />
         {instructor && (
@@ -74,7 +74,7 @@ function ClassesPage() {
             <TabsTrigger
               key={d}
               value={d}
-              className="rounded-full border border-border bg-white px-5 py-2 text-sm text-taupe data-[state=active]:border-gold data-[state=active]:bg-gold data-[state=active]:text-white"
+              className="rounded-full border border-border bg-white px-4 py-2 text-sm text-taupe data-[state=active]:border-gold data-[state=active]:bg-gold data-[state=active]:text-white"
             >
               {d}
             </TabsTrigger>
@@ -84,7 +84,7 @@ function ClassesPage() {
           {filtered.length === 0 ? (
             <div className="soft-card p-10 text-center text-muted-foreground">No classes matching this filter.</div>
           ) : (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {filtered.map((c) => {
                 const full = c.booked >= c.capacity;
                 return (
@@ -121,49 +121,51 @@ function ClassesPage() {
           {bookings.length === 0 ? (
             <div className="p-10 text-center text-muted-foreground">No bookings yet — book a class above.</div>
           ) : (
-            <table className="w-full text-sm">
-              <thead className="bg-muted/50 text-left text-xs uppercase tracking-[0.15em] text-taupe">
-                <tr>
-                  <th className="p-4">Class</th>
-                  <th className="p-4">When</th>
-                  <th className="p-4">Ref</th>
-                  <th className="p-4">Status</th>
-                  <th className="p-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {bookings.map((b) => (
-                  <tr key={b.id} className="border-t border-border">
-                    <td className="p-4">
-                      <div className="font-medium">{b.className}</div>
-                      <div className="text-xs text-muted-foreground">with {b.instructor}</div>
-                    </td>
-                    <td className="p-4">{b.day} · {b.time}<div className="text-xs text-muted-foreground">{b.date}</div></td>
-                    <td className="p-4 font-mono text-xs">{b.id}</td>
-                    <td className="p-4">
-                      <span className={
-                        "rounded-full px-2.5 py-1 text-xs " +
-                        (b.status === "confirmed" ? "bg-gold/15 text-gold" : b.status === "waitlist" ? "bg-rose/25 text-charcoal" : "bg-muted text-muted-foreground")
-                      }>{b.status}</span>
-                    </td>
-                    <td className="p-4 text-right">
-                      {b.status !== "cancelled" ? (
-                        <div className="flex justify-end gap-2">
-                          <button
-                            onClick={() => { store.cancelBooking(b.id); toast("Booking cancelled"); }}
-                            className="rounded-full border border-border px-3 py-1 text-xs hover:border-rose hover:text-rose"
-                          >Cancel</button>
-                          <button
-                            onClick={() => { toast.success("Reschedule email sent (demo)"); }}
-                            className="rounded-full border border-border px-3 py-1 text-xs hover:border-gold hover:text-gold"
-                          >Reschedule</button>
-                        </div>
-                      ) : <span className="text-xs text-muted-foreground">—</span>}
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="min-w-[640px] w-full text-sm">
+                <thead className="bg-muted/50 text-left text-xs uppercase tracking-[0.15em] text-taupe">
+                  <tr>
+                    <th className="p-4">Class</th>
+                    <th className="p-4">When</th>
+                    <th className="p-4">Ref</th>
+                    <th className="p-4">Status</th>
+                    <th className="p-4 text-right">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {bookings.map((b) => (
+                    <tr key={b.id} className="border-t border-border">
+                      <td className="p-4">
+                        <div className="font-medium">{b.className}</div>
+                        <div className="text-xs text-muted-foreground">with {b.instructor}</div>
+                      </td>
+                      <td className="p-4">{b.day} · {b.time}<div className="text-xs text-muted-foreground">{b.date}</div></td>
+                      <td className="p-4 font-mono text-xs">{b.id}</td>
+                      <td className="p-4">
+                        <span className={
+                          "rounded-full px-2.5 py-1 text-xs " +
+                          (b.status === "confirmed" ? "bg-gold/15 text-gold" : b.status === "waitlist" ? "bg-rose/25 text-charcoal" : "bg-muted text-muted-foreground")
+                        }>{b.status}</span>
+                      </td>
+                      <td className="p-4 text-right">
+                        {b.status !== "cancelled" ? (
+                          <div className="flex justify-end gap-2">
+                            <button
+                              onClick={() => { store.cancelBooking(b.id); toast("Booking cancelled"); }}
+                              className="rounded-full border border-border px-3 py-1 text-xs hover:border-rose hover:text-rose"
+                            >Cancel</button>
+                            <button
+                              onClick={() => { toast.success("Reschedule email sent (demo)"); }}
+                              className="rounded-full border border-border px-3 py-1 text-xs hover:border-gold hover:text-gold"
+                            >Reschedule</button>
+                          </div>
+                        ) : <span className="text-xs text-muted-foreground">—</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </section>
@@ -182,7 +184,7 @@ function ClassesPage() {
 
       {/* BOOKING MODAL */}
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="mx-3 max-w-md sm:mx-0">
           <DialogHeader>
             <DialogTitle className="font-serif text-2xl">
               {confirmed ? "Booking confirmed" : selected?.name}

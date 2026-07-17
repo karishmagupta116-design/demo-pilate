@@ -4,7 +4,7 @@ import { Instagram, Facebook, Youtube } from "lucide-react";
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border/60 bg-[oklch(0.94_0.02_82)]">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 sm:py-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
         <div>
           <div className="font-serif text-xl tracking-[0.2em]">XENWIX</div>
           <p className="mt-3 text-sm text-muted-foreground">
@@ -46,7 +46,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-border/60">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs text-muted-foreground md:flex-row">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-muted-foreground sm:px-6 md:flex-row">
           <div>© {new Date().getFullYear()} Xenwix Pilates. All rights reserved.</div>
           <div className="flex gap-5">
             <Link to="/privacy" className="hover:text-gold">Privacy Policy</Link>
