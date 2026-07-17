@@ -58,23 +58,25 @@ function ClassesPage() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading eyebrow="Weekly schedule" title="Book a class" sub="Reformer, mat and private sessions. Availability updates the moment someone books." />
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-14">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+        <div className="min-w-0 flex-1">
+          <SectionHeading eyebrow="Weekly schedule" title="Book a class" sub="Reformer, mat and private sessions. Availability updates the moment someone books." />
+        </div>
         {instructor && (
-          <Link to="/classes" search={{}} className="rounded-full border border-border px-4 py-1.5 text-xs uppercase tracking-[0.15em] text-taupe hover:border-gold hover:text-gold">
+          <Link to="/classes" search={{}} className="inline-flex w-fit items-center self-start rounded-full border border-border px-4 py-1.5 text-xs uppercase tracking-[0.15em] text-taupe hover:border-gold hover:text-gold">
             Clear filter: {instructor} ×
           </Link>
         )}
       </div>
 
       <Tabs value={day} onValueChange={(v) => setDay(v as typeof DAYS[number])} className="mt-10">
-        <TabsList className="flex flex-wrap gap-1 bg-transparent p-0">
+        <TabsList className="flex flex-wrap gap-2 bg-transparent p-0">
           {DAYS.map((d) => (
             <TabsTrigger
               key={d}
               value={d}
-              className="rounded-full border border-border bg-white px-4 py-2 text-sm text-taupe data-[state=active]:border-gold data-[state=active]:bg-gold data-[state=active]:text-white"
+              className="rounded-full border border-border bg-white px-3 py-2 text-sm text-taupe data-[state=active]:border-gold data-[state=active]:bg-gold data-[state=active]:text-white sm:px-4"
             >
               {d}
             </TabsTrigger>
@@ -88,7 +90,7 @@ function ClassesPage() {
               {filtered.map((c) => {
                 const full = c.booked >= c.capacity;
                 return (
-                  <div key={c.id} className="soft-card p-5">
+                  <div key={c.id} className="soft-card min-w-0 p-5">
                     <div className="flex items-center justify-between">
                       <Eyebrow>{c.time}</Eyebrow>
                       <span className={"text-xs " + (full ? "text-rose" : "text-taupe")}>
@@ -202,9 +204,11 @@ function ClassesPage() {
                 </div>
               </div>
               <p className="text-xs text-muted-foreground">By confirming you agree to our 4-hour cancellation policy.</p>
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setSelected(null)}>Not now</Button>
-                <Button onClick={confirmBooking} className="bg-charcoal text-white hover:bg-gold">
+              <DialogFooter className="flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                <Button variant="outline" onClick={() => setSelected(null)} className="w-full sm:w-auto">
+                  Not now
+                </Button>
+                <Button onClick={confirmBooking} className="w-full bg-charcoal text-white hover:bg-gold sm:w-auto">
                   {selected.booked >= selected.capacity ? "Join waitlist" : "Confirm booking"}
                 </Button>
               </DialogFooter>
@@ -220,10 +224,10 @@ function ClassesPage() {
                 <span className="font-mono text-base text-foreground">{confirmed}</span>
               </div>
               <div className="text-sm">{selected.name} · {selected.day} {selected.time}</div>
-              <div className="flex justify-center gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row sm:justify-center">
                 <button
                   onClick={() => toast.success("Added to Google Calendar (demo)")}
-                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs hover:border-gold hover:text-gold"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border px-4 py-2 text-xs hover:border-gold hover:text-gold"
                 >
                   <CalendarPlus className="h-4 w-4" /> Add to Google Calendar
                 </button>
