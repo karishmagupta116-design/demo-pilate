@@ -71,7 +71,7 @@ function ClassesPage() {
       </div>
 
       <Tabs value={day} onValueChange={(v) => setDay(v as typeof DAYS[number])} className="mt-10">
-        <TabsList className="flex flex-wrap gap-2 bg-transparent p-0">
+        <TabsList className="flex flex-wrap gap-2 bg-transparent p-0 mb-4 sm:mb-0 relative z-10">
           {DAYS.map((d) => (
             <TabsTrigger
               key={d}
@@ -82,7 +82,7 @@ function ClassesPage() {
             </TabsTrigger>
           ))}
         </TabsList>
-        <TabsContent value={day} className="mt-8">
+        <TabsContent value={day} className="mt-12 sm:mt-8">
           {filtered.length === 0 ? (
             <div className="soft-card p-10 text-center text-muted-foreground">No classes matching this filter.</div>
           ) : (
@@ -90,7 +90,7 @@ function ClassesPage() {
               {filtered.map((c) => {
                 const full = c.booked >= c.capacity;
                 return (
-                  <div key={c.id} className="soft-card min-w-0 p-5">
+                  <div key={c.id} className="soft-card min-w-0 p-5 relative z-0">
                     <div className="flex items-center justify-between">
                       <Eyebrow>{c.time}</Eyebrow>
                       <span className={"text-xs " + (full ? "text-rose" : "text-taupe")}>
